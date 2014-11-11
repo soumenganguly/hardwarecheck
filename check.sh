@@ -10,8 +10,19 @@ vari=$(cat /proc/meminfo | grep MemTotal | awk '{print $2}')
 echo "Total Memory: $vari kB"
 
 #No. of USB ports
-echo "No. of USB ports: $(lsusb | wc -l)"
+i=0
+for id in $(lsusb | awk '{print $6}')
+do
+  usb_id[$i]=$id
+  i=`expr $i + 1`
+done
+#echo ${usb_id[*]}
 
+                     #OR
+
+usb=$(lsusb | awk '{print $6}' | uniq -c | awk '{print $2}' | wc -l)
+echo "No. of USB ports: $usb"
+               
 #MAC address of Ethernet and wifi
 #Ethernet
 emac=$(ifconfig | grep eth0 | awk '{print $5}')
@@ -27,7 +38,7 @@ else
 fi
 
 #Check the status of the battery
-#NOTE: Uncomment the 4 lines below if running this script on an laptop.
+#NOTE: Uncomment the 4 lines below if running this script on a laptop.
 #capacity="$(cat /sys/class/power_supply/BAT0/capacity)"
 #echo "Charge remaining: $(capacity)%"
 #status="$(cat /sys/class/power_supply/BAT0/status)"
@@ -37,16 +48,5 @@ fi
 scr=$(xdpyinfo | awk '/dimensions:/ {print $2}')
 echo "Screen resolution: $scr" 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+file='check.csv'
+echo "$(uname -n), $(nproc), $vari, $usb, $emac, $wlanmac, $scr " >> $file
