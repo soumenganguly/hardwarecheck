@@ -31,7 +31,7 @@ echo "Ethernet mac address: $emac"
 #wifi mac address
 if [ $(ifconfig | grep wlan)=="" ]
 then
-  :
+  wlanmac='Not connected via Wifi'
 else
   wlanmac=$(ifconfig | grep wlan | awk '{print $5}')
   echo "wifi mac address: $wlanmac"
@@ -48,5 +48,26 @@ fi
 scr=$(xdpyinfo | awk '/dimensions:/ {print $2}')
 echo "Screen resolution: $scr" 
 
+#Audio check
+echo "Testing Speakers..."
+cat /dev/urandom | padsp tee /dev/audio > /dev/null &
+SPID=$!
+( sleep 6; kill $SPID)
+echo "Speaker test successful."
+
+#Mic check
+echo "Testing Microphone..."
+echo "Please speak after the beep"
+cat /dev/urandom | padsp tee /dev/audio > /dev/null &
+MPID=$!
+( sleep 3; kill $MPID )
+arecord -d 10 /tmp/test1-mic.wav
+echo "Mic test successful"
+aplay /tmp/test1-mic.wav
+
+
+
+#Output the contents to a CSV file
+$(touch check.csv)
 file='check.csv'
-echo "$(uname -n), $(nproc), $vari, $usb, $emac, $wlanmac, $scr " >> $file
+echo "$(uname -n), $(nproc), $vari, $usb, $emac, $wlanmac, $scr, Yes " >> $file
