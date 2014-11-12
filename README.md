@@ -1,1 +1,1 @@
-This is a basic shell script to check the hardware specs. of your machine. 
+This is a basic shell script to test the hardware of your machine. 
