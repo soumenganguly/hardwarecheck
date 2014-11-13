@@ -3,7 +3,7 @@
 #Script to check the hardware specs.
 
 #No. of CPU's
-echo "No. of CPU's:" $(nproc)""
+echo "No. of CPU's:$(nproc)"
 
 #Installed RAM
 vari=$(cat /proc/meminfo | grep MemTotal | awk '{print $2}')
@@ -65,9 +65,23 @@ arecord -d 10 /tmp/test1-mic.wav
 echo "Mic test successful"
 aplay /tmp/test1-mic.wav
 
+#HDMI check
+hdmi=''
+if [ $(xrandr | grep HDMI)=='' ]
+then
+  hdmi="No"
+else
+  hdmi="Yes"
+fi
+
+#Video check
+
+#NAND flash
+
+#Webcam probing
 
 
 #Output the contents to a CSV file
 $(touch check.csv)
 file='check.csv'
-echo "$(uname -n), $(nproc), $vari, $usb, $emac, $wlanmac, $scr, Yes " >> $file
+echo "$(uname -n), $(nproc), $vari, $usb, $emac, $wlanmac, $scr, Yes, $hdmi " >> $file
