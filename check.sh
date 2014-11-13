@@ -2,6 +2,10 @@
 
 #Script to check the hardware specs.
 
+#Serial no.
+echo "Enter the Serial no. of the netbook:"
+read SNO
+
 #No. of CPU's
 echo "No. of CPU's:$(nproc)"
 
@@ -39,10 +43,10 @@ fi
 
 #Check the status of the battery
 #NOTE: Uncomment the 4 lines below if running this script on a laptop.
-#capacity="$(cat /sys/class/power_supply/BAT0/capacity)"
-#echo "Charge remaining: $(capacity)%"
-#status="$(cat /sys/class/power_supply/BAT0/status)"
-#echo "Status of battery: $(status)"
+capacity="$(cat /sys/class/power_supply/BAT0/capacity)"
+echo "Charge remaining: $(capacity)%"
+status="$(cat /sys/class/power_supply/BAT0/status)"
+echo "Status of battery: $(status)"
 
 #Check the screen resolution
 scr=$(xdpyinfo | awk '/dimensions:/ {print $2}')
@@ -84,4 +88,4 @@ fi
 #Output the contents to a CSV file
 $(touch check.csv)
 file='check.csv'
-echo "$(uname -n), $(nproc), $vari, $usb, $emac, $wlanmac, $scr, Yes, $hdmi " >> $file
+echo "$SNO, $(nproc), $vari, $usb, $emac, $wlanmac, $scr, Yes, $hdmi " >> $file
