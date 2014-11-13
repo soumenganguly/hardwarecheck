@@ -1,4 +1,4 @@
-This is a basic shell script to test the hardware of your machine. It redirects the ouput to a CSV file.
+This is a basic shell script to test the hardware of your machine( It redirects the output to a CSV file in your $pwd ).
 
 ###### Checks for:
 1. No. of CPUs
