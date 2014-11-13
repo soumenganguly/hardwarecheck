@@ -3,8 +3,7 @@
 #Script to check the hardware specs.
 
 #Serial no.
-echo "Enter the Serial no. of the netbook:"
-read SNO
+sno=$(zenity --entry --text='Please enter the Serial no. of the netbook.") 
 
 #No. of CPU's
 echo "No. of CPU's:$(nproc)"
@@ -88,4 +87,4 @@ fi
 #Output the contents to a CSV file
 $(touch check.csv)
 file='check.csv'
-echo "$SNO, $(nproc), $vari, $usb, $emac, $wlanmac, $scr, Yes, $hdmi " >> $file
+echo "$sno, $(nproc), $vari, $usb, $emac, $wlanmac, $scr, Yes, $hdmi " >> $file
