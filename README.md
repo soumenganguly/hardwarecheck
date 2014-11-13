@@ -1,4 +1,4 @@
-This is a basic shell script to test the hardware of your machine, and it also output's the content's to a CSV file.
+This is a basic shell script to test the hardware of your machine. It redirects the ouput to a CSV file.
 
 ###### Checks for:
 1. No. of CPUs
@@ -11,7 +11,7 @@ This is a basic shell script to test the hardware of your machine, and it also o
 8. Total Memory
 9. Battery capacity & status
 
-------------------------------------------
+
 
 ###### TODO:
 1. Video playback
