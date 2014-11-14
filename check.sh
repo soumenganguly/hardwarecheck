@@ -3,7 +3,9 @@
 #Script to check the hardware specs.
 
 #Serial no.
-sno=$(zenity --entry --text='Please enter the Serial no. of the netbook.") 
+sno=$(zenity --entry --text='Please enter the Serial no. of the netbook.') 
+
+#Hostname
 
 #No. of CPU's
 echo "No. of CPU's:$(nproc)"
@@ -85,6 +87,18 @@ fi
 
 
 #Output the contents to a CSV file
-$(touch check.csv)
-file='check.csv'
-echo "$sno, $(nproc), $vari, $usb, $emac, $wlanmac, $scr, Yes, $hdmi " >> $file
+$(touch $sno.csv)
+file="$sno.csv"
+echo -e " No. of CPUs \t, Total Memory(kB)\t, No. of USB ports\t, Ethernet MAC address\t, Wifi MAC address\t, Screen resolution\t, Speaker Test\t, Mic Test\t, HDMI check" >> $file;
+echo "=======================================================================================================================================================" >> $file;
+echo -e " $(nproc)\t, $vari\t, $usb\t, $emac\t, $wlanmac\t, $scr\t, Yes\t, No\t, $hdmi " >> $file 
+user='anonymous'
+pass=''
+#Uncomment these lines below if you're connected to a ftp server.
+#ftp -n 10.101.11.109 <<END_SCRIPT
+#quote USER $user
+#quote PASS $pass
+#put $sno.csv /$sno.csv
+#quit
+#END_SCRIPT
+#exit 0
