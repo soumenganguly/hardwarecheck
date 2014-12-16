@@ -3,11 +3,12 @@
 #Check the battery status of the Netbook
 batterystatus=$(cat /tmp/sys/class/power_supply/BAT/uevent)
 #echo $batterystatus
-if [ $batterystatus == 1 ];  then
-  echo " Battery Discharging "
-else
-  echo " Battery Charging"
-fi
+
+#if [ $batterystatus == 1 ];  then
+#  echo " Battery Discharging "
+#else
+#  echo " Battery Charging"
+#fi
 
 
 #Check the Time remaining for the battery to exhaust.
@@ -28,10 +29,10 @@ if [ $batterystatus == 1 ];  then
   hours_left=`expr $mins_left / 60`
   mins=`expr $mins_left % 60`
   echo $mins_left > power.txt
-  echo "$hours_left hours and $mins mins. left"
+ # echo "$hours_left hours and $mins mins. left"
 else                                        #Case 2: Charging
   charge_mins=`expr $charge_mins + 1`
-  echo " $charge_mins mins. charged"
+  #echo " $charge_mins mins. charged"
   batt_life_on_charge=`expr $charge_mins \* 2`
   x=`expr $mins_left + $batt_life_on_charge`
   if [ $x -gt 300 ];  then
@@ -42,10 +43,10 @@ else                                        #Case 2: Charging
   y=$(cat power.txt)
   perc_left=`expr $y / 3`
 #echo " $charge_mins mins. of charge = $batt_life_on_charge mins. of battery life" #We need to add this time to $mins_left
-  if [ $perc_left == 100 ];  then
-      echo "100% charged"
-  else
-      echo "$perc_left% charged"
-  fi
+ # if [ $perc_left == 100 ];  then
+ #     echo "100% charged"
+ # else
+ #     echo "$perc_left% charged"
+ # fi
     
 fi
